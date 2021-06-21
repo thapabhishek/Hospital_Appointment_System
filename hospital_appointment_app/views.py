@@ -27,7 +27,7 @@ from .forms import NewUserForm, AppointmentForm
 def homepage(request):
     return render(request, 'homepage.html')
 
-@login_required(login_url='login')
+#@login_required(login_url='login')
 def appointment(request):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
