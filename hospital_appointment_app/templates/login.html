@@ -1,23 +1,77 @@
-<!DOCTYPE html>
-<html>
-  <head>
-      <!-- Required meta tags -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <!--Bootstrap CSS-->
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    </head>
-    <body>
-        {% load crispy_forms_tags %}  
-<!--Register--> 
-<div class="container py-5">
-	<h1>Login</h1>
-	<form method="POST">
-		{% csrf_token %}
-		{{ form|crispy }}                    
-		<button class="btn btn-primary" type="submit">Login</button>
-	</form>
-	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block body %}
+<div class="container">
+  <div class="col d-flex justify-content-center align-items-center">
+      <div class="login-box" >
+          <div class="login-logo">
+          <a href='#'><b>Hospital</b> Appointment System</a>
+          </div>
+          <!-- /.login-logo -->
+          <div class="card">
+          <div class="card-body login-card-body">
+              <p class="login-box-msg">Sign in to Hospital Appointment System</p>
+
+              <form method="post">
+                  {% csrf_token %}
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Username" name="login_request">
+                  <div class="input-group-append">
+                  <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                  </div>
+                  </div>
+              </div>
+              <div class="input-group mb-3">
+                  <input type="password" class="form-control" placeholder="Password" name="password">
+                  <div class="input-group-append">
+                  <div class="input-group-text">
+                      <span class="fas fa-lock"></span>
+                  </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <!-- /.col -->
+                  <div class="col-12">
+                  <button type="submit" class="btn btn-primary btn-block">Login</button>
+                  </div><!-- /.col -->
+              </div>
+              <div class="row">
+                  {% if messages %}
+              <div class="col-12">
+                  {% for message in messages %}
+                  {% if message.tags == 'error' %}
+                  <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div>
+                  {% endif %}
+                  {% endfor %}
+                  </div>
+                  {% endif %}
+              </div>
+              </form>
+              <div class="social-auth-links text-center mb-3">
+              <p>- OR -</p>
+              <a href="#" class="btn btn-block btn-primary">
+                  <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+              </a>
+              <a href="#" class="btn btn-block btn-danger">
+                  <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+              </a>
+              </div>
+              <!-- /.social-auth-links -->
+
+              <p class="mb-1">
+              <a href="{% url 'password_reset_request' %}"> Forgot my password</a>
+              </p>
+              <p class="mb-0">
+              <a href="{% url 'register' %}" class="text-center">Register a new membership</a>
+              </p>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
-</body>
-</html>
+
+
+{% endblock %}
